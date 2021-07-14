@@ -466,4 +466,36 @@ class IvrPromptResponse(models.Model):
 
     def __str__(self):
         return self.prompt_name
+
+class WebhookTransactionLog(models.Model):
+    id = models.AutoField(
+        auto_created = True,
+        primary_key = True,
+        serialize = False,
+        verbose_name ='ID'
+        )
+
+    payload = models.TextField(blank=True, null=True)
+    processed = models.BooleanField(null=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'webhook_transaction_log'
+
+class IvrCallbackTransactionLog(models.Model):
+    id = models.AutoField(
+        auto_created = True,
+        primary_key = True,
+        serialize = False,
+        verbose_name ='ID'
+        )
+
+    payload = models.TextField(blank=True, null=True)
+    processed = models.BooleanField(null=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'ivr_callback_transaction_log'
     
