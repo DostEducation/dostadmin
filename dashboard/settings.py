@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'pe)1mni@alzzvh$z(z84(s!l--6j!q(h5hcf2ux1%=lyi^42!$'
 import os
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'pe)1mni@alzzvh$z(z84(s!l--6j!q(h5hcf2ux1%=lyi^42!$')
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', env('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -82,15 +87,15 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'rp-ivr',
+        'NAME': env('DATABASE_NAME'),
 
-        'USER': 'adminboard',
+        'USER': env('DATABASE_USER'),
 
-        'PASSWORD': 'adminboard',
+        'PASSWORD': env('DATABASE_PASSWORD'),
 
-        'HOST': '127.0.0.1',
+        'HOST': env('DATABASE_HOST'),
 
-        'PORT': '5432',
+        'PORT': env('DATABASE_PORT'),
 
     }
 }
